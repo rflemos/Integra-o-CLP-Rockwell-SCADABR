@@ -29,7 +29,7 @@ public class EthernetTeste {
 
 					plc2.connectTcp();
 
-					String tag = "TESTE_CONTADOr";
+					String tag = "TESTE_CONTADO";
 					System.out.println("\n*\n* bool '" + tag + "':\n*\n");
 					
 					int z;

@@ -4,13 +4,14 @@ import java.nio.BufferUnderflowException;
 
 import etherip.data.CipException;
 import utils.Inicial;
+import utils.Integration;
 
 public class UI {
 	
 	
 	
-	final public static void Conection(Inicial ini) throws Exception {
-	ini.Conect();
+	final public static void Conection(Integration integration) throws Exception {
+	integration.Conection();
 	}
 	
 	final public static void  readTags(Inicial ini) throws Exception   {
@@ -32,6 +33,9 @@ public class UI {
 		
 		}
 		
+	}
+	final public static void setScada(Integration integration) throws Exception {
+		integration.writeScadaDataSource();
 	}
 	
 	

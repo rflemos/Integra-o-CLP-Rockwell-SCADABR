@@ -6,21 +6,22 @@ import javax.swing.event.TreeWillExpandListener;
 
 import etherip.data.CipException;
 import utils.Inicial;
+import utils.Integration;
 
 public class Program {
 	
 	
 	public static void main(String[] args) throws Exception {
 	 
-		Inicial inicio = new Inicial();
+		Integration integration = new Integration();
 		
 		
 		while(true) {
 		try {
-		UI.Conection(inicio);
+		UI.Conection(integration);
 		try {
 		while(true) {
-		UI.readTags(inicio);
+		UI.setScada(integration);
 		}
 		}
 		catch (CipException e) {
