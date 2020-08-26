@@ -24,7 +24,7 @@ public class Escreve {
     
     
      public static String leitor()throws IOException {
-        BufferedReader buffRead = new BufferedReader(new FileReader("Tags"));
+        BufferedReader buffRead = new BufferedReader(new FileReader("Tags_Dint"));
         StringBuilder chave= new StringBuilder();
         String linha="";
         while (true) {

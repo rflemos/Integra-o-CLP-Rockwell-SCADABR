@@ -48,14 +48,15 @@ public class Integration {
 		WriteDataOptions writeDataOptions = new WriteDataOptions();
 		writeDataOptions.setReturnItemValues(false);
 		
-		for(int i =0; i<inicial.list.length; i++) {
-		try {	
+		for(int i =0; i<inicial.listDint.length; i++) {
+		try {
+			
 		ItemValue itemValue = new ItemValue();
-		itemValue.setItemName(inicial.list[i]); // Path da tag a receber a operação de escrita
+		itemValue.setItemName(inicial.listDint[i]); // Path da tag a receber a operaï¿½ï¿½o de escrita
 		itemValue.setTimestamp(Calendar.getInstance());
 		itemValue.setQuality(QualityCode.GOOD);
-		itemValue.setDataType(DataType.DOUBLE);
-		itemValue.setValue(inicial.getData(inicial.list[i]).getBool());
+		itemValue.setDataType(DataType.FLOAT);
+		itemValue.setValue(inicial.getData(inicial.listDint[i]).getNumber(0).floatValue());
 		ItemValue[] itemValueList = new ItemValue[1]; // Para alterar mais de uma tag, basta acrescentar mais objetos ItemValue na lista
 		itemValueList[0] = itemValue;
 
@@ -74,12 +75,13 @@ public class Integration {
 			APIError[] errors = writeDataResponse.getErrors();
 			if(errors[0].getCode() != ErrorCode.OK) {
 			 response = "Error: " + errors[0].getDescription();
+			 System.out.println(response);
 			} else {
 			 response =  ":\n";
 			}
 		 
 		} catch (RemoteException e) {
-	
+			
 		} 
 		
 		

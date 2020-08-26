@@ -12,12 +12,12 @@ import etherip.types.CIPData;
 public class Inicial {
 	
 	private EtherNetIP plc;
-	protected String[] list;
+	protected String[] listDint;
 	private Integration integration;
 	
 	public Inicial() throws IOException {
-		plc = new EtherNetIP("100.0.0.135",0);
-		list = Escreve.leitor().split(";");
+		plc = new EtherNetIP("192.168.1.2",0);
+		listDint = Escreve.leitor().split(";");
 		
 	}
 	
@@ -27,7 +27,7 @@ public class Inicial {
 	}
 
 	public String[] getList() {
-		return list;
+		return listDint;
 	}
 	
 	final public CIPData getData(String tag) throws Exception  {

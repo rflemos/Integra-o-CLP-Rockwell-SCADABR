@@ -1,18 +1,14 @@
 package application;
 
-import java.util.concurrent.TimeoutException;
-
-import javax.swing.event.TreeWillExpandListener;
-
+import java.io.IOException;
 import etherip.data.CipException;
-import utils.Inicial;
 import utils.Integration;
 
-public class Program {
+public class ProgramPrince {
 	
 	
-	public static void main(String[] args) throws Exception {
-	 
+	public static void main(String[] args) {
+		try {
 		Integration integration = new Integration();
 		
 		
@@ -31,9 +27,14 @@ public class Program {
 		
 		
 		}
-		catch (TimeoutException e) {
+		catch (Exception e) {
 			System.out.println(e.getMessage());
-			Thread.sleep(2000);
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			
 		}
 		
@@ -42,7 +43,9 @@ public class Program {
 		
 		}
 		
-	 
+		}
+		catch (IOException e) {
+			System.out.println("Init program problem: " + e.getMessage());}
 	 
 	}
 

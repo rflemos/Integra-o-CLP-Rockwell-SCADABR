@@ -61,9 +61,9 @@ public class Teste {
 			}
 		 
 		} catch (RemoteException e) {
-	
+			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 			
 		}
 		
@@ -73,7 +73,7 @@ public class Teste {
 			i=false;
 		else
 			i=true;
-		
+		System.out.println("check");
 		
 		}
 }

@@ -16,7 +16,7 @@ public class EthernetTeste {
 		 * CIPData value =plc.readTag(tag); z=value.getDint();
 		 * System.out.println(value); }
 		 */
-		EtherNetIP plc2 = new EtherNetIP("100.0.0.135",0);
+		EtherNetIP plc2 = new EtherNetIP("192.168.1.2",0);
 		
 		try 
 		
@@ -29,7 +29,7 @@ public class EthernetTeste {
 
 					plc2.connectTcp();
 
-					String tag = "TESTE_CONTADO";
+					String tag = "TESTE_CONTADOR";
 					System.out.println("\n*\n* bool '" + tag + "':\n*\n");
 					
 					int z;
