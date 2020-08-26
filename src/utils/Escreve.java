@@ -41,6 +41,26 @@ public class Escreve {
         return chave.toString();
         
     }
+     
+     public static String leitor2()throws IOException {
+         BufferedReader buffRead = new BufferedReader(new FileReader("Tags_Float"));
+         StringBuilder chave= new StringBuilder();
+         String linha="";
+         while (true) {
+         	
+         	
+             if (linha != null) {
+                 chave.append(linha);    
+             } else
+                 break;
+            linha =buffRead.readLine();
+             
+         }
+         buffRead.close();
+         return chave.toString();
+         
+     }
+   
  
     public static void escritor(String path,String peso) throws IOException {
         BufferedWriter buffWrite = new BufferedWriter(new FileWriter(path,true));

@@ -45,6 +45,8 @@ public class Integration {
 
 	
 	public void writeScadaDataSource() throws Exception {
+		
+		
 		WriteDataOptions writeDataOptions = new WriteDataOptions();
 		writeDataOptions.setReturnItemValues(false);
 		
@@ -56,13 +58,23 @@ public class Integration {
 		itemValue.setTimestamp(Calendar.getInstance());
 		itemValue.setQuality(QualityCode.GOOD);
 		itemValue.setDataType(DataType.FLOAT);
+	
 		itemValue.setValue(inicial.getData(inicial.listDint[i]).getNumber(0).floatValue());
 		ItemValue[] itemValueList = new ItemValue[1]; // Para alterar mais de uma tag, basta acrescentar mais objetos ItemValue na lista
 		itemValueList[0] = itemValue;
-
+		
+		
+		
+		
+		
 		WriteDataParams writeDataParams = new WriteDataParams();
+		WriteDataParams writeDataParamsFloat = new WriteDataParams();
+		
 		writeDataParams.setItemsList(itemValueList);
-
+		
+		
+		
+		
 		WriteDataResponse writeDataResponse = new WriteDataResponse();
 
 		try {
@@ -70,11 +82,13 @@ public class Integration {
 		
 		 writeDataResponse = service.writeData(writeDataParams);
 		 
+		 
+		 
 		 String response = "";
 
 			APIError[] errors = writeDataResponse.getErrors();
 			if(errors[0].getCode() != ErrorCode.OK) {
-			 response = "Error: " + errors[0].getDescription();
+			 response = "Error: " + errors[0].getDescription() + inicial.listDint[i];
 			 System.out.println(response);
 			} else {
 			 response =  ":\n";
@@ -98,7 +112,68 @@ public class Integration {
 		}
 		
 	}
-		
+	
+		for(int i =0; i<inicial.listFloat.length; i++) {
+			try {
+				
+			
+			
+			
+			ItemValue itemValueFloat = new ItemValue();
+			itemValueFloat.setItemName(inicial.listFloat[i]); // Path da tag a receber a opera��o de escrita
+			itemValueFloat.setTimestamp(Calendar.getInstance());
+			itemValueFloat.setQuality(QualityCode.GOOD);
+			itemValueFloat.setDataType(DataType.FLOAT);
+			itemValueFloat.setValue(inicial.getData(inicial.listFloat[i]).getNumber(0).floatValue());
+			ItemValue[] itemValueListFloat = new ItemValue[1]; // Para alterar mais de uma tag, basta acrescentar mais objetos ItemValue na lista
+			itemValueListFloat[0] = itemValueFloat;
+			
+			
+			WriteDataParams writeDataParams = new WriteDataParams();
+			WriteDataParams writeDataParamsFloat = new WriteDataParams();
+			
+			
+			
+			writeDataParamsFloat.setItemsList(itemValueListFloat);
+			
+			
+			WriteDataResponse writeDataResponse = new WriteDataResponse();
+
+			try {
+				
+			
+			 
+			 
+			 writeDataResponse = service.writeData(writeDataParamsFloat);
+			 
+			 String response = "";
+
+				APIError[] errors = writeDataResponse.getErrors();
+				if(errors[0].getCode() != ErrorCode.OK) {
+				 response = "Error: " + errors[0].getDescription() + inicial.listFloat[i];
+				 System.out.println(response);
+				} else {
+				 response =  ":\n";
+				}
+			 
+			} catch (RemoteException e) {
+				
+			} 
+			
+			
+			
+			
+			}
+			
+			catch(CipException e) {
+				System.out.println(e.getMessage());
+			}
+			catch (BufferUnderflowException e) {
+				System.out.println("Invalid variable type");
+			
+			}
+			
+		}
 		
 	
 	

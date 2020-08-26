@@ -17,7 +17,9 @@ public class ProgramPrince {
 		UI.Conection(integration);
 		try {
 		while(true) {
+			
 		UI.setScada(integration);
+		
 		}
 		}
 		catch (CipException e) {

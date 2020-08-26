@@ -29,16 +29,16 @@ public class EthernetTeste {
 
 					plc2.connectTcp();
 
-					String tag = "TESTE_CONTADOR";
+					String tag = "MARCHA";
 					System.out.println("\n*\n* bool '" + tag + "':\n*\n");
 					
-					int z;
+					float z;
 					boolean a;
 					try {
 						while (true) {
 
 							CIPData value = plc2.readTag(tag);
-							z =  value.getBool();
+							z =  value.getNumber(0).intValue();
 							
 							
 
