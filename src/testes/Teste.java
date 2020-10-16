@@ -11,6 +11,9 @@ import br.org.scadabr.api.ScadaBRAPI;
 import br.org.scadabr.api.constants.DataType;
 import br.org.scadabr.api.constants.ErrorCode;
 import br.org.scadabr.api.constants.QualityCode;
+import br.org.scadabr.api.da.ReadDataOptions;
+import br.org.scadabr.api.da.ReadDataParams;
+import br.org.scadabr.api.da.ReadDataResponse;
 import br.org.scadabr.api.da.WriteDataOptions;
 import br.org.scadabr.api.da.WriteDataParams;
 import br.org.scadabr.api.da.WriteDataResponse;
@@ -20,6 +23,9 @@ import br.org.scadabr.api.vo.ItemValue;
 public class Teste {
 
 	public static void main(String[] args) {
+		
+		
+		
 		APILocator locator = new APILocator();
 		ScadaBRAPI service = null;
 		try {
@@ -76,5 +82,11 @@ public class Teste {
 		System.out.println("check");
 		
 		}
+		
+		
+		
+	
+		
+		
 }
 }

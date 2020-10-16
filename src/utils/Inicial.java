@@ -14,7 +14,7 @@ public class Inicial {
 	private EtherNetIP plc;
 	protected String[] listDint;
 	protected String[] listFloat;
-	private Integration integration;
+	
 	
 	public Inicial() throws IOException {
 		plc = new EtherNetIP("192.168.1.2",0);
@@ -41,6 +41,7 @@ public class Inicial {
 		CIPData cipData = null;
 		try {
 		cipData = plc.readTag(tag);
+		
 		}catch(TimeoutException e) {
 			throw new TimeoutException("Lost connection");
 		}
@@ -48,6 +49,25 @@ public class Inicial {
 		return cipData;
 		
 		}
+	
+	
+	final public void  sendData(int value,String tag) throws Exception  {
+		CIPData cipData = plc.readTag("ENGATE1");
+		
+		try {
+			
+		cipData.set(0, value);
+		
+		plc.writeTag(tag, cipData);
+		
+		}catch(TimeoutException e) {
+			throw new TimeoutException("Lost connection");
+		}
+		
+		
+		
+		}
+	
 	
 	final public void Conect() throws Exception   {
 		try {

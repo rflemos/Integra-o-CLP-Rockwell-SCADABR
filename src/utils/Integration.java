@@ -13,6 +13,9 @@ import br.org.scadabr.api.ScadaBRAPI;
 import br.org.scadabr.api.constants.DataType;
 import br.org.scadabr.api.constants.ErrorCode;
 import br.org.scadabr.api.constants.QualityCode;
+import br.org.scadabr.api.da.ReadDataOptions;
+import br.org.scadabr.api.da.ReadDataParams;
+import br.org.scadabr.api.da.ReadDataResponse;
 import br.org.scadabr.api.da.WriteDataOptions;
 import br.org.scadabr.api.da.WriteDataParams;
 import br.org.scadabr.api.da.WriteDataResponse;
@@ -57,9 +60,9 @@ public class Integration {
 		itemValue.setItemName(inicial.listDint[i]); // Path da tag a receber a opera��o de escrita
 		itemValue.setTimestamp(Calendar.getInstance());
 		itemValue.setQuality(QualityCode.GOOD);
-		itemValue.setDataType(DataType.FLOAT);
+		itemValue.setDataType(DataType.INTEGER);
 	
-		itemValue.setValue(inicial.getData(inicial.listDint[i]).getNumber(0).floatValue());
+		itemValue.setValue(inicial.getData(inicial.listDint[i]).getNumber(0).intValue());
 		ItemValue[] itemValueList = new ItemValue[1]; // Para alterar mais de uma tag, basta acrescentar mais objetos ItemValue na lista
 		itemValueList[0] = itemValue;
 		
@@ -68,7 +71,7 @@ public class Integration {
 		
 		
 		WriteDataParams writeDataParams = new WriteDataParams();
-		WriteDataParams writeDataParamsFloat = new WriteDataParams();
+		
 		
 		writeDataParams.setItemsList(itemValueList);
 		
@@ -129,7 +132,7 @@ public class Integration {
 			itemValueListFloat[0] = itemValueFloat;
 			
 			
-			WriteDataParams writeDataParams = new WriteDataParams();
+			
 			WriteDataParams writeDataParamsFloat = new WriteDataParams();
 			
 			
@@ -180,4 +183,62 @@ public class Integration {
 	
 	
 
-}}
+}
+	public void readScadaDataSource() throws Exception {
+		try {
+		
+		String [] itemPathList = {"ENGATE1"};
+		
+		ReadDataOptions readDataOptions = new ReadDataOptions();
+		ReadDataParams readDataParams = new ReadDataParams();
+		readDataParams.setOptions(readDataOptions);
+		readDataParams.setItemPathList(itemPathList); // lista com todas as tags que se deseja ler
+		ReadDataResponse readDataResponse = new ReadDataResponse();
+
+		try {
+		    
+			readDataResponse = service.readData(readDataParams);
+		    
+		    
+		} catch (RemoteException e) {
+		    e.printStackTrace();
+		}
+
+		ItemValue[] itemsValue = readDataResponse.getItemsList();
+		String response = "";
+
+		APIError[] errors = readDataResponse.getErrors();
+		if(errors[0].getCode() != ErrorCode.OK) {
+		    response = "Error: " + errors[0].getDescription();
+		    System.out.println(response);    
+		}
+		
+		else {
+		    response ="" + itemsValue[0].getValue();
+		}
+		
+		
+		int z = (int) Double.parseDouble(response);
+		
+		if(z==1) {
+			inicial.sendData(z, itemPathList[0]);
+			System.out.println(z+" engate1");
+		}
+		
+		
+	}
+	
+	catch(CipException e) {
+		System.out.println(e.getMessage());
+	}
+	catch (BufferUnderflowException e) {
+		System.out.println("Invalid variable type");
+	
+	}
+		
+	
+	}
+
+
+
+}
