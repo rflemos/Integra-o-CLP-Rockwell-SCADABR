@@ -4,6 +4,9 @@ import java.rmi.RemoteException;
 import java.util.Calendar;
 
 import javax.xml.rpc.ServiceException;
+import javax.xml.soap.SOAPException;
+
+import org.apache.axis.message.SOAPHeaderElement;
 
 import br.org.scadabr.api.APILocator;
 import br.org.scadabr.api.APISoapBindingStub;
@@ -28,18 +31,34 @@ public class Teste {
 		
 		APILocator locator = new APILocator();
 		ScadaBRAPI service = null;
-		try {
-		 service = (APISoapBindingStub) locator.getAPI();
-		} catch (ServiceException e) {
-		 
-		}
+		
+
+		
+			try {
+			service = (APISoapBindingStub) locator.getAPI();
+			System.out.print((APISoapBindingStub) locator.getAPI() instanceof java.rmi.Remote );
+			
+			SOAPHeaderElement authentication = new SOAPHeaderElement("http://scadabr.org.br/api/","authentication");
+			SOAPHeaderElement user = new SOAPHeaderElement("http://scadabr.org.br/api/","username", "admin");
+			SOAPHeaderElement password = new SOAPHeaderElement("http://scadabr.org.br/api/","password", "admin");
+			 
+			 authentication.addChild(user);
+			 authentication.addChild(password);
+			 ((APISoapBindingStub)service).setHeader(authentication);
+
+			} catch (ServiceException e) {}
+			 
+			 catch (SOAPException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		boolean i=true;
 		while(true) {
 		WriteDataOptions writeDataOptions = new WriteDataOptions();
 		writeDataOptions.setReturnItemValues(false);
 
 		ItemValue itemValue = new ItemValue();
-		itemValue.setItemName("BKL4_OEE_API_1"); // Path da tag a receber a operação de escrita
+		itemValue.setItemName("bkk"); // Path da tag a receber a operaï¿½ï¿½o de escrita
 		itemValue.setTimestamp(Calendar.getInstance());
 		itemValue.setQuality(QualityCode.GOOD);
 		itemValue.setDataType(DataType.BOOLEAN);

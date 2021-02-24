@@ -29,7 +29,7 @@ public class EthernetTeste {
 
 					plc2.connectTcp();
 
-					String tag = "MARCHA";
+					String tag = "UTIL_1T";
 					System.out.println("\n*\n* bool '" + tag + "':\n*\n");
 					
 					float z;

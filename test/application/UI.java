@@ -36,7 +36,7 @@ public class UI {
 	}
 	final public static void setScada(Integration integration) throws Exception {
 		integration.writeScadaDataSource();
-		//integration.readScadaDataSource();
+	//integration.readScadaDataSource();
 		
 	}
 	
