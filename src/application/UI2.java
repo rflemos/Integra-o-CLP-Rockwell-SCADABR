@@ -2,6 +2,10 @@ package application;
 
 import java.nio.BufferUnderflowException;
 
+import javax.print.attribute.standard.Sides;
+
+import com.sun.org.apache.xml.internal.security.keys.storage.implementations.SingleCertificateResolver;
+
 import etherip.data.CipException;
 import scadabr.ClpToScada;
 import utils.Inicial;
@@ -9,7 +13,7 @@ import utils.Integration;
 
 public class UI2 {
 
-	final public static void Conection(ClpToScada clpToScada) throws Exception {
+	final synchronized public static void Conection(ClpToScada clpToScada)  {
 		clpToScada.tryConnectClp();
 
 	}
@@ -31,12 +35,12 @@ public class UI2 {
 
 	}
 
-	final public static void setScada(ClpToScada clpToScada) throws Exception {
+	final synchronized public static void setScada(ClpToScada clpToScada){
 		clpToScada.trasnferDataToScada();
 		
 	}
 
-	final public static void readScada(Integration integration) throws Exception {
+	final synchronized public static void readScada(Integration integration) throws Exception {
 
 	}
 

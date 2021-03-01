@@ -36,12 +36,19 @@ public class ImplMaquina implements Maquina {
 		List<Tag> tags = new ArrayList<>();
 		try {
 			for (String tag : nameTags) {
+				try {
+				Tag tempTag= new Tag(tag, getClpData(tag).getType(), getClpData(tag).getNumber(0));
+				tags.add(tempTag);	
 				
-				tags.add(new Tag(tag, getClpData(tag).getType(), getClpData(tag).getNumber(0)));
+				}catch(RuntimeException e) {
+					System.err.println(e.getMessage());
+				}
+				
+				
 
 			}
-
 			return tags;
+
 		} catch (IndexOutOfBoundsException e) {
 			throw new RuntimeException(e.getMessage());
 		} catch (Exception e) {
@@ -64,15 +71,13 @@ public class ImplMaquina implements Maquina {
 	@Override
 	public void connection() {
 		try {
-			
+
 			clp.connectTcp();
 		}
 
 		catch (TimeoutException e) {
-			
 			throw new RuntimeException("Not possible connect clp");
 		} catch (Exception e) {
-			
 			throw new RuntimeException("Error in conncetion: " + e.getMessage());
 		}
 
@@ -82,7 +87,7 @@ public class ImplMaquina implements Maquina {
 		try {
 			clp.close();
 		} catch (Exception e) {
-			System.err.println("Not possible to disconnect clp: ");
+			System.err.println("Not possible to disconnect clp: " + e.getMessage());
 		}
 
 	}
@@ -102,19 +107,25 @@ public class ImplMaquina implements Maquina {
 
 	//
 	@Override
-	public CIPData getClpData(String tag) throws Exception {
+	public CIPData getClpData(String tag) {
 
 		try {
 			CIPData cipData = clp.readTag(tag);
 			return cipData;
 
 		} catch (CipException e) {
-			throw new RuntimeException(e.getMessage() + "CIPEX");
+			throw new RuntimeException("Tag reading error " + e.getMessage());
+			
+			
 		} catch (TimeoutException e) {
-			clp.close();
-			throw new RuntimeException("Lost Conection ");
+			try {
+				clp.close();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			throw new RuntimeException("Loss of Connection");
 		} catch (Exception e) {
-			throw new RuntimeException(e.getMessage() + "exeption2");
+			throw new RuntimeException("Unexpected tag reading error " +  e.getMessage() );
 		}
 
 	}

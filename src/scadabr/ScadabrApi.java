@@ -22,7 +22,7 @@ import br.org.scadabr.api.da.WriteDataResponse;
 import br.org.scadabr.api.vo.APIError;
 import br.org.scadabr.api.vo.ItemValue;
 import equipamentconnection.Tag;
-import etherip.data.CipException;
+
 import etherip.types.CIPData.Type;
 
 public class ScadabrApi {
@@ -106,9 +106,7 @@ public class ScadabrApi {
 				throw new RuntimeException(errors[0].getDescription());
 			} 
 			} catch (RemoteException e) {
-			System.out.println("Remote error e1 " + e.getMessage());
-			
-		
+				throw new RuntimeException("Writing error Scadabr" + e.getLocalizedMessage());
 		}
 
 	

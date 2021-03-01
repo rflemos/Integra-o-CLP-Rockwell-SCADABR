@@ -8,7 +8,7 @@ public interface Maquina {
 
 	void connection();
 
-	CIPData getClpData(String tag) throws Exception;
+	CIPData getClpData(String tag);
 
 	List<Tag> getTagsFromclp();
 
